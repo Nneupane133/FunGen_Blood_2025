@@ -1,0 +1,26 @@
+treatment	type
+SRR11650122	Big	paired-end	
+SRR11650126	Big	paired-end	
+SRR11650127	Big	paired-end	
+SRR11650128	Small	paired-end	
+SRR11650129	Small	paired-end	
+SRR11650131	Big	paired-end	
+SRR11650134	Big	paired-end	
+SRR11650138	Big	paired-end	
+SRR11650140	Small	paired-end	
+SRR11650141	Small	paired-end	
+SRR11650142	Big	paired-end	
+SRR17893386	Small	paired-end	
+SRR17893388	Big	paired-end	
+SRR17893389	Big	paired-end	
+SRR18645116	Big	paired-end	
+SRR18645117	Big	paired-end	
+SRR18645125	Big	paired-end	
+SRR25832772	Small	paired-end	
+SRR25832774	Small	paired-end	
+SRR26403890	Small	paired-end	
+SRR26403891	Small	paired-end	
+SRR26403894	Small	paired-end	
+SRR26403899	Small	paired-end	
+SRR26403914	Small	paired-end	
+SRR26403927	Small	paired-end
