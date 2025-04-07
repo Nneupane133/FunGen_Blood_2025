@@ -5,18 +5,13 @@
 # https://bioconductor.riken.jp/packages/2.14/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf
 # http://master.bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
-
 ### set working directory
 setwd("~/Desktop/FunGen/Final project")
 
 #### Install the DESeq2 package if you have not already
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-  #install.packages("BiocManager")
-#BiocManager::install("DESeq2")
 library(DESeq2)
 
-
-########## Input data   ##############
+## Input data ##
 
 ### Input the count data, the gene(/transcript) count matrix and labels
   ### How you inport this will depend on what your final output was from the mapper/counter that you used.
@@ -32,13 +27,11 @@ coldata <-(read.table("4_inputDEseq2_Final.txt", header=TRUE, row.names=1))
 dim(coldata)
 head(coldata)
 
-
 #Check all sample IDs in colData are also in CountData and match their orders
 all(rownames(coldata) %in% colnames(countdata))
 countdata <- countdata[, rownames(coldata)]
 all(rownames(coldata) == colnames(countdata))
 #should output TRUE for both if matched
-
 
 ## Create the DESEQ dataset and define the statistical model (page 6 of the manual)
 dds <- DESeqDataSetFromMatrix(countData = countdata, colData=coldata,  design = ~treatment)
@@ -73,7 +66,6 @@ res
   res05 <- results(dds, alpha=0.05)
   summary(res05)
   sum(res05$padj < 0.05, na.rm=TRUE)
-
   
 ###  MA-plot
   ##plotMA shows the log2 fold changes attributable to a given variable over the mean of normalized counts. 
@@ -87,7 +79,6 @@ res
   rld <- rlog(dds)
   vsd <- varianceStabilizingTransformation(dds)
   head(assay(rld), 3)
-  
   
 ### Heatmap of the count matrix
   #library("genefilter")
@@ -112,13 +103,40 @@ res
            clustering_distance_cols=sampleDists,
            col=colors)
   
-  
  # 2.2.3 Principal component plot of the samples
   plotPCA(rld, intgroup=c("treatment"))
   
-
-############################# Make ranked list for GSEA ####################
   
+## Find the sample names of the outliers for analysis ##
+  # Extract and transpose expression matrix since PCA plotting before is using rld
+  expr_mat <- t(assay(rld))  # transpose so samples are rows
+  
+  # Run PCA on the above expression matrix
+  pca <- prcomp(expr_mat, scale. = TRUE)
+  
+  # Turn into data frame
+  pca_df <- as.data.frame(pca$x)
+  pca_df$sample <- rownames(pca_df)
+  
+  # Add group info (e.g., Big vs Small)
+  pca_df$group <- colData(rld)$treatment
+  
+  library(ggplot2)
+  library(ggrepel)
+  
+  # Define what you want outliers to be (here, anything > 1.8 SD from the mean is indicated as an outlier)
+  outliers <- subset(pca_df, abs(PC1) > 1.8 * sd(PC1) | abs(PC2) > 1.8 * sd(PC2))
+  
+  #plot PCA and label outliers with sample IDs
+  ggplot(pca_df, aes(x = PC1, y = PC2)) + #make a plot
+    geom_point(aes(color = group)) +  #add the points to the plot, different colors for Big/small
+    geom_text_repel(data = outliers, aes(label = sample), color = "black") + #add labels to outlier points by pulling sample ID from sample column
+    theme_minimal()
+  
+  #print outlier IDs
+  print(outliers$sample)
+  
+## Make ranked list for GSEA ###
   ### Merge 'gene names' with DGE results by Gene Model
   
   ## Import the DGE results file make sure the gene model name is 'gene_id' to match annotation file
