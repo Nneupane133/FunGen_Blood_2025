@@ -20,6 +20,14 @@ countdata <- as.matrix(read.csv("gene_count_matrix.csv", row.names="gene_id"))
 dim(countdata)
 head(countdata)
 
+#remove gene- and  everything after | symbol to clean up
+rownames(countdata) <- gsub("^gene-", "", rownames(countdata))  # Remove "gene-" prefix
+rownames(countdata) <- gsub("\\|.*", "", rownames(countdata))  # Remove "|" and everything after
+
+#make sure it worked
+head(rownames(countdata))
+
+
 ### Input the phenotype data
 # Note: The 4_inputDESeq2_Final file contains information on each sample, e.g., size and SRA# The exact way to import this depends on the format of the file.
 ##  Make sure the individual names match between the count data and the metadata in the correct order
@@ -152,29 +160,14 @@ res
 DGE_Rank <-  within(DGEresults, rank <- sign(log2FoldChange) * -log10(pvalue))
 DGE_Rank 
 
-# Remove "gene-" from the gene_id column
-DGE_Rank$gene_id <- gsub("^gene-", "", DGE_Rank$gene_id)
-# Make sure it worked
-head(DGE_Rank$gene_id)
-
-# Remove everything after the pipe (including the pipe) in the gene_id column
-DGE_Rank$cleaned_gene_id <- gsub("\\|.*", "", DGE_Rank$gene_id)
-# make sure it worked
-head(DGE_Rank$cleaned_gene_id)
-
 #subset the results so only Gene Name and rank
-DGErank <- DGE_Rank[, c("cleaned_gene_id","rank")]
+DGErank <- DGE_Rank[, c("gene_id","rank")]
 DGErank
 
 #subset the results so only Gene Name and rank
 DGErank_withName <- na.omit(DGErank)
 DGErank_withName
 dim(DGErank_withName)
-
-#change column name to just gene_id
-colnames(DGErank_withName)[colnames(DGErank_withName) == "cleaned_gene_id"] <- "gene_id"
-#make sure it worked
-colnames(DGErank_withName)
 
 #export as .rnk file for GSEA analysis
 write.table(as.data.frame(DGErank_withName), file="DGErankName_final.rnk", quote=FALSE, row.names=FALSE, sep = "\t")  
@@ -191,16 +184,6 @@ NormTransExp<-assay(nt)
 summary(NormTransExp)
 head(NormTransExp)
 
-# Remove "gene-" from the row names
-rownames(NormTransExp) <- gsub("^gene-", "", rownames(NormTransExp))
-#make sure it worked
-head(NormTransExp)
-
-# Remove everything after the pipe symbol (|) in the gene ID
-rownames(NormTransExp) <- gsub("\\|.*", "", rownames(NormTransExp))
-# make sure it worked
-head(NormTransExp)
-
 # Convert row names into a column
 NormTransExp <- data.frame(gene_id = rownames(NormTransExp), NormTransExp, row.names = NULL)
 # make sure it worked
@@ -213,3 +196,4 @@ dim(NormTransExp_withName)
 
 #export as txt file
 write.table(as.data.frame(NormTransExp_withName), file="NormTransExp_withName.txt", quote=FALSE, row.names=FALSE, sep = "\t")  
+
