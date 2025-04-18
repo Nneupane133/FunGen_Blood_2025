@@ -78,7 +78,12 @@ res
 ###  MA-plot
   ##plotMA shows the log2 fold changes attributable to a given variable over the mean of normalized counts. 
   ## Points which fall out of the window are plotted as open triangles pointing either up or down
-  plotMA(res, main="DESeq2", ylim=c(-8,8))
+  plotMA(res, main="DESeq2 Results", ylim=c(-8,8), xlab="Mean of Normalized Counts", ylab="Log2 Fold Change")
+  
+  # Add highlighting for even more significant genes (if highlighted in red padj < 0.05, if in blue originally p-val < 0.1)
+  with(res, points(res$baseMean[res$padj < 0.05], res$log2FoldChange[res$padj < 0.05], 
+                   col="red", pch=16, cex=0.5))
+  #dev.off()
   
   ##  Write your results to a file 
   write.csv(as.data.frame(resOrdered), file="DGESeq_results.csv")  
@@ -90,7 +95,7 @@ res
   
 ### Heatmap of the count matrix
   #library("genefilter")
-  topVarGenes <- head(order(rowVars(assay(vsd)), decreasing = TRUE), 50)
+  topVarGenes <- head(order(rowVars(assay(vsd)), decreasing = TRUE), 20)
   
   library("pheatmap")
   mat  <- assay(vsd)[ topVarGenes, ]
