@@ -29,7 +29,7 @@ head(rownames(countdata))
 
 
 ### Input the phenotype data
-# Note: The 4_inputDESeq2_Final file contains information on each sample, e.g., size and SRA# The exact way to import this depends on the format of the file.
+# Note: The pheno_input_DESeq2 file contains information on each sample, e.g., size and SRA# The exact way to import this depends on the format of the file.
 ##  Make sure the individual names match between the count data and the metadata in the correct order
 coldata <-(read.table("pheno_input_DEseq2.txt", header=TRUE, row.names=1))
 dim(coldata)
