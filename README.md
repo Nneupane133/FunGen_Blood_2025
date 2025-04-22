@@ -1,7 +1,7 @@
 # FunGen_Blood_2025
 
 ## Introduction
-This is the team project analyzing the RNAseq dataset for blood tissue from dogs. In this project, we use the RNAseq data to compare the body size difference between the big and small dog. 
+This is the team project analyzing the RNAseq dataset for blood tissue from dogs. In this project, we used the RNAseq data to compare the body size difference between the big and small dog. 
 
 ## Hypothesis and Research question
 We hypothesized that blood-based gene expression profiles would reveal key regulatory pathways associated with canine body size. We predicted that if transcriptomic variation in blood is linked to physiological traits such as growth, energy metabolism, and cellular maintenance, then we would expect to observe differential expression of genes involved in pathways like insulin signaling, oxidative metabolism, ECM remodeling, and stress response between large and small dog breeds.
