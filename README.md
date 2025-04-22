@@ -21,42 +21,42 @@ To investigate differential gene expression associated with canine body size by 
     - PRJNA629466, PRJNA803741, PRJNA823683, PRJNA1011250, PRJNA1028815.
 - Inclusion criteria: known age, sex, disease-free, and sequencing method consistency.
 
-2. Data Download & Preprocessing:
+2. **Data Download & Preprocessing**
 - Used SRA Toolkit (fastq-dump) to download FASTQ files.
 - Quality check: FastQC v0.10.1.
 - Trimming: Trimmomatic v0.39 to remove adapters and low-quality bases.
 
-3. Read Mapping:
+3. **Read Mapping**
 - Aligned reads to Canis lupus familiaris reference genome (Dog_Tasha_GCF_000002285.5) using HISAT2 v2.2.0.
 
-4. Quantification:
+4. **Quantification**
 - Used SAMtools and StringTie v2.2.1 for gene-level quantification and transcript assembly.
 - Gene count matrix generated with prepDE.py3.
 
-5. Statistical Modeling (DESeq2): (for Differential Gene Expression Analysis (DGE))
+5. **Statistical Modeling (DESeq2)**: (for Differential Gene Expression Analysis (DGE))
 - Software: R 4.4.2 and DESeq2 v1.46.0.
 - Filtered out genes with < 20 total reads.
 - Significance threshold: adjusted p-value < 0.05.
 - Identified 495 significantly differentially expressed genes (DEGs).
 
-6. Data Visualization:
+6. **Data Visualization**
 - MA plot: visualized gene fold changes vs mean expression.
 Heatmap: top 20 variable genes (via pheatmap).
 PCA plot: used to assess clustering and detect outliers (ggplot2, ggrepel).
 Outliers: SRR18645116, SRR18645117, SRR18645125 (due to library prep method).
 
-7. GSEA Preparation:
+7. **GSEA Preparation**
 - DEGs ranked using: rank = sign(log2FC) * -log10(p-value).
 - Ranked list saved as .rnk file.
 - Used full gene set to detect enriched pathways.
 - Calculated Enrichment Score (ES) and Normalized Enrichment Score (NES).
 
-8. Protein Variant Analysis
+8. **Protein Variant Analysis**
 - Targeted Gene Mapping:
-- Focused on insulin/IGF pathway genes: INS, IGF1, IGF2, INSR, IGF1R, IGFBPs, IRS1–4.
-- Reads aligned with HISAT2, counted with StringTie, converted using SAMtools.
+    - Focused on insulin/IGF pathway genes: INS, IGF1, IGF2, INSR, IGF1R, IGFBPs, IRS1–4.
+    - Reads aligned with HISAT2, counted with StringTie, converted using SAMtools.
 
-9. Variant Calling:
+9. **Variant Calling**
 - Performed using bcftools.
 - Protein variant analysis conducted with Geneious Prime.
 
