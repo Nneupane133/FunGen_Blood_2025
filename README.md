@@ -13,6 +13,9 @@ To investigate differential gene expression associated with canine body size by 
 - Determine whether metabolic, growth, and ECM-related pathways are enriched among these DEGs.
 - Explore the function of the insulin signaling pathway and related metabolic networks in relation to bodu size difference
 
+## How to use this Repository
+
+
 ## Methodology
 1. **Sample Selection**
 - Paired-end RNA-seq data from 25 healthy dogs across 14 breeds.
