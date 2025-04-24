@@ -28,7 +28,7 @@ To investigate differential gene expression associated with canine body size by 
     - A .txt file will be needed that includes phenotype data for the samples. Use **pheno_input_DESeq2.txt** as a model for what to include in this text file.
     - This will generate a results.csv file, a .rnk file, and a normalized expression.txt file which will be utilized for GSEA analysis
 -  Use the aformentioned files for input GSEA tool.
--  To look for protein variants, the script titled **DogIIS_map_variantcall_conc.sh** was used.
+-  To investigate protein variants, the script titled **DogIIS_map_variantcall_conc.sh** was used.
 
 ### Methodology
 1. **Sample Selection**
