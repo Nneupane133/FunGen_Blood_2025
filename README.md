@@ -1,22 +1,31 @@
-# FunGen_Blood_2025
+# FunGen Blood Group 2025
 
-## Introduction
+### Introduction
 This is the team project analyzing the RNAseq dataset for blood tissue from dogs. In this project, we used the RNAseq data to compare the body size difference between the big and small dog. 
 
-## Hypothesis and Research question
+### Hypothesis and Research question
 We hypothesized that blood-based gene expression profiles would reveal key regulatory pathways associated with canine body size. We predicted that if transcriptomic variation in blood is linked to physiological traits such as growth, energy metabolism, and cellular maintenance, then we would expect to observe differential expression of genes involved in pathways like insulin signaling, oxidative metabolism, ECM remodeling, and stress response between large and small dog breeds.
 
-## Goal
+### Goal
 To investigate differential gene expression associated with canine body size by analyzing RNA-seq data from blood samples collected from 25 healthy individuals representing 14 distinct dog breeds (12 large, 13 small). we aim to:
 
 - Identify differentially expressed genes (DEGs) between big and small dogs.
 - Determine whether metabolic, growth, and ECM-related pathways are enriched among these DEGs.
 - Explore the function of the insulin signaling pathway and related metabolic networks in relation to bodu size difference
 
-## How to use this Repository
+### How to use this Repository
+- Begin with the bioinformatics pipeline. We utilized the Alabama Supercomputer for the initial bioinformatics. This will generate a count matrix to be utilized as an input file for differential gene expression (DGE) analysis.
+1. 1.downloadSRA.sh
+2. 2.cleanTrimmomatic.sh
+3. 3.indexing.sh
+4. 4.Mapping_HISAT2.sh
+- Move on to DGE analysis using the script titled **DESeq2_analysis_data_vis.R**.
+    - A .txt file will be needed that includes phenotype data for the samples. Use **pheno_input_DESeq2.txt** as a model for what to include in this text file.
+    - This will generate a results.csv file, a .rnk file, and a normalized expression.txt file which will be utilized for GSEA analysis
+-  Use the aformentioned files for input GSEA tool.
+-  To look for protein variants, the script titled **DogIIS_map_variantcall_conc.sh** was used.
 
-
-## Methodology
+### Methodology
 1. **Sample Selection**
 - Paired-end RNA-seq data from 25 healthy dogs across 14 breeds.
 - Balanced distribution: 12 large dogs and 13 small dogs.
@@ -63,7 +72,7 @@ Outliers: SRR18645116, SRR18645117, SRR18645125 (due to library prep method).
 - Performed using bcftools.
 - Protein variant analysis conducted with Geneious Prime.
 
-## Key findings
+### Key findings
 - 858 DEGs were identified at p < 0.1, with 495 genes significant at p < 0.05.
 - Pathways upregulated in big dogs included:
     - ECM-receptor interaction
