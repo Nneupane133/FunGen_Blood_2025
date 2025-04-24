@@ -15,10 +15,10 @@ To investigate differential gene expression associated with canine body size by 
 
 ### How to use this Repository
 - Begin with the bioinformatics pipeline. We utilized the Alabama Supercomputer for the initial bioinformatics. This will generate a count matrix to be utilized as an input file for differential gene expression (DGE) analysis.
-1. 1.downloadSRA.sh
-2. 2.cleanTrimmomatic.sh
-3. 3.indexing.sh
-4. 4.Mapping_HISAT2.sh
+First, 1.downloadSRA.sh
+Second, 2.cleanTrimmomatic.sh
+Third, 3.indexing.sh
+Fourth, 4.Mapping_HISAT2.sh
 - Move on to DGE analysis using the script titled **DESeq2_analysis_data_vis.R**.
     - A .txt file will be needed that includes phenotype data for the samples. Use **pheno_input_DESeq2.txt** as a model for what to include in this text file.
     - This will generate a results.csv file, a .rnk file, and a normalized expression.txt file which will be utilized for GSEA analysis
