@@ -119,7 +119,6 @@ res
  # 2.2.3 Principal component plot of the samples
   plotPCA(rld, intgroup=c("treatment"))
   
-  
 ## Find the sample names of the outliers for analysis ##
   # Extract and transpose expression matrix since PCA plotting before is using rld
   expr_mat <- t(assay(rld))  # transpose so samples are rows
@@ -160,7 +159,6 @@ res
   ## Rename first column so it matches "gene_id" in annotation file
   names(DGEresults)[1]<- "gene_id" 
   
-## example aa <- within(resOrdered, z <- x + y - 2)
   #creating rank column within DGEresults
 DGE_Rank <-  within(DGEresults, rank <- sign(log2FoldChange) * -log10(pvalue))
 DGE_Rank 
@@ -177,8 +175,7 @@ dim(DGErank_withName)
 #export as .rnk file for GSEA analysis
 write.table(as.data.frame(DGErank_withName), file="DGErankName_final.rnk", quote=FALSE, row.names=FALSE, sep = "\t")  
 
-
-####  We also need the normalized expression DATA
+####  generate normalized expression data
 nt <- normTransform(dds) # defaults to log2(x+1)
 head(assay(nt))
 # compare to original count data
@@ -201,5 +198,3 @@ dim(NormTransExp_withName)
 
 #export as txt file
 write.table(as.data.frame(NormTransExp_withName), file="NormTransExp_withName.txt", quote=FALSE, row.names=FALSE, sep = "\t")  
-
-
